@@ -1,13 +1,12 @@
-import { View, Text, StyleSheet } from "react-native";
 import React from "react";
 import { useFormContext } from "react-hook-form";
 import { AppTextInput } from "@/elements";
-import { CommonStyle } from "@/constants";
+import { YStack } from "tamagui";
 
-export function LoginContent() {
+export function RegisterContent() {
   const { control } = useFormContext();
   return (
-    <View style={styles.container}>
+    <YStack gap={20}>
       <AppTextInput
         name="email"
         control={control}
@@ -26,10 +25,6 @@ export function LoginContent() {
         label={"Email"}
         placeholder="Email"
       />
-    </View>
+    </YStack>
   );
 }
-
-const styles = StyleSheet.create({
-  container: { gap: 20 },
-});

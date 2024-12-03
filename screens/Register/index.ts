@@ -1,2 +1,1 @@
-export * from './RegisterContent'
-export * from './RegisterSubmit'
+export * from "./RegisterScreen";

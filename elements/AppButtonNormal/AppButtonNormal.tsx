@@ -1,17 +1,16 @@
-import { View, Text } from "react-native";
-import React from "react";
-import { Button } from "react-native-paper";
-import { ButtonProps } from "react-native-paper";
+import React, { Children } from "react";
+import { Button, ButtonProps } from "tamagui";
 
-type Props = ButtonProps;
+type Props = React.PropsWithChildren<ButtonProps>;
 
 export function AppButtonNormal(props: Props) {
+  const { children, ...rest } = props;
   return (
     <Button
-      mode="contained"
-      {...props}
-      contentStyle={[{ paddingVertical: 5 }, props.contentStyle]}
-      style={[{ borderRadius: 10 }, props.style]}
-    />
+      bg={'$tint'} color={'$background'}
+      {...rest}
+    >
+      {children}
+    </Button>
   );
 }

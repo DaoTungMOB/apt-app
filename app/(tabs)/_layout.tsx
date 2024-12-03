@@ -8,6 +8,7 @@ import TabBarBackground from "@/components/ui/TabBarBackground";
 import { Colors } from "@/constants/Colors";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import { Building2, CircleUserRound } from "@tamagui/lucide-icons";
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -38,15 +39,20 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="myapt"
+        options={{
+          title: "Căn hộ của tôi",
+          tabBarIcon: ({ color }) => (
+            <Building2 size={24} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
         name="account"
         options={{
           title: "Người dùng",
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons
-              name="account-circle-outline"
-              size={24}
-              color={color}
-            />
+            <CircleUserRound size={24} color={color} />
           ),
         }}
       />

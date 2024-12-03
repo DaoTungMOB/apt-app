@@ -1,14 +1,11 @@
-import { View, Text } from "react-native";
 import React from "react";
-import { Colors } from "@/constants/Colors";
-import { StyleProp } from "react-native";
-import { TextStyle } from "react-native";
+import { Text, TextProps } from "tamagui";
 
-type Props = { message?: string | null; style: StyleProp<TextStyle> };
-export function AppTextError({ message, style }: Props) {
+type Props = { message?: string | null; textProps: TextProps };
+export function AppTextError({ message, textProps }: Props) {
   if (!message) return null;
   return (
-    <Text style={[{ fontSize: 12, color: Colors.light.error }, style]}>
+    <Text fos={12} color={"$error"} {...textProps}>
       {message}
     </Text>
   );
