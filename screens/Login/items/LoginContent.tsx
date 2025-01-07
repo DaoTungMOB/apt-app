@@ -1,6 +1,6 @@
 import React from "react";
 import { useFormContext } from "react-hook-form";
-import { AppTextInput } from "@/elements";
+import { AppSelectDate, AppTextInput } from "@/elements";
 import { YStack } from "tamagui";
 
 export function LoginContent() {
@@ -24,6 +24,7 @@ export function LoginContent() {
         }}
         label={"Mật khẩu"}
         placeholder="Mật khẩu"
+        secureTextEntry
       />
     </YStack>
   );

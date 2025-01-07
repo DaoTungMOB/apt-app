@@ -23,12 +23,12 @@ export function HomeHeader() {
             />
             <Avatar.Fallback backgroundColor="$blue10" />
           </Avatar>
-          <Text color={"$background"} fow={"bold"} fos={18}>
+          <Text color={"$background"} fow={"bold"} fos={16}>
             Nguyen Van A
           </Text>
         </XStack>
       </YStack>
-      <AppButtonNormal bg={"$background"} color={'$tint'} fow={'bold'} fos={18} px={14}>Liên hệ</AppButtonNormal>
+      <AppButtonNormal bg={"$background"} color={'$tint'} fow={'bold'} fos={16} px={12} height={40}>Liên hệ</AppButtonNormal>
     </XStack>
   );
 }

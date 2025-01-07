@@ -1,52 +1,42 @@
 import React from "react";
 import { Image, Text, XStack, YStack } from "tamagui";
+import { Colors, devide_with } from "@/constants";
+import { formatVND, TApt } from "@/utils";
 
-type Props = {
-  apt: {
-    id: number;
-    image: string;
-    totalFloor: number;
-    totalRooms: number;
-    area: number;
-    "Owner's name": string;
-  };
-};
+const default_img =
+  "https://images.unsplash.com/photo-1735857749394-703e8a4d926b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw0fHx8ZW58MHx8fHx8";
 
+type Props = { apt?: TApt };
 export function MyAptItem({ apt }: Props) {
   return (
-    <YStack bg={"#0a7ea41a"} br={12}>
+    <XStack
+      borderBottomWidth={1}
+      borderBlockColor={Colors.light.borderapp}
+      gap={10}
+    >
       <Image
-        source={{ uri: apt.image }}
-        width={"100%"}
-        aspectRatio={3 / 2}
-        borderRadius={12}
+        source={{ uri: apt?.thumbnail || default_img }}
+        width={devide_with / 3}
+        aspectRatio={1}
+        borderRadius={4}
       />
-      <YStack p={15}>
-        <XStack alignItems="center">
-          <Text fow={"bold"} fos={16}>
-            Chủ sở hữu:{" "}
-          </Text>
-          <Text fos={16}>{apt["Owner's name"]}</Text>
-        </XStack>
-        <XStack alignItems="center">
-          <Text fow={"bold"} fos={16}>
-            Số tầng:{" "}
-          </Text>
-          <Text fos={16}>{apt.totalFloor}</Text>
-        </XStack>
-        <XStack alignItems="center">
-          <Text fow={"bold"} fos={16}>
-            Số phòng:{" "}
-          </Text>
-          <Text fos={16}>{apt.totalRooms}</Text>
-        </XStack>
-        <XStack alignItems="center">
-          <Text fow={"bold"} fos={16}>
-            Diện tích:{" "}
-          </Text>
-          <Text fos={16}>{apt.area}m2</Text>
-        </XStack>
+      <YStack py={5} justifyContent="space-between">
+        <Text fos={16}>
+          Mã căn hộ: <Text fow={"bold"}>{apt?.code}</Text>
+        </Text>
+        <Text fos={16}>
+          Số tầng: <Text fow={"bold"}>{apt?.floorNumber} tầng</Text>
+        </Text>
+        <Text fos={16}>
+          Diện tích: <Text fow={"bold"}>{apt?.area}m2</Text>
+        </Text>
+        <Text fos={16}>
+          Giá thuê: <Text fow={"bold"}>{formatVND(apt?.rentPrice)}</Text>
+        </Text>
+        <Text fos={16}>
+          Giá bán: <Text fow={"bold"}>{formatVND(apt?.sellPrice)}</Text>
+        </Text>
       </YStack>
-    </YStack>
+    </XStack>
   );
 }

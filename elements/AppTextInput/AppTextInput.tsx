@@ -2,7 +2,7 @@ import React from "react";
 import { useController, UseControllerProps } from "react-hook-form";
 import { AppTextError } from "../AppTextError";
 import { Colors } from "@/constants";
-import { Input, InputProps, YStack } from "tamagui";
+import { Input, InputProps, XStack, YStack } from "tamagui";
 import { AppTextLabel } from "../AppTextLabel";
 
 type Props = InputProps & UseControllerProps & { label?: string };
@@ -33,13 +33,19 @@ export function AppTextInput(props: Props) {
   return (
     <YStack gap={2}>
       <AppTextLabel label={label} pb={5} />
-      <Input
-        value={value}
-        onChangeText={onChange}
-        bg={"$color.background"}
-        boc={error?.message && "$error"}
-        {...textInputProps}
-      />
+      <XStack alignItems="stretch">
+        <Input
+          flex={1}
+          value={value}
+          onChangeText={onChange}
+          placeholderTextColor={Colors.light.grey999}
+          borderRadius={12}
+          bg={"$color.background"}
+          boc={error?.message && "$error"}
+          {...textInputProps}
+        />
+      </XStack>
+
       <AppTextError message={error?.message} />
     </YStack>
   );

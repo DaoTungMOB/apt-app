@@ -51882,6 +51882,34 @@
           "name": "c-error",
           "val": "#e53637",
           "variable": ""
+        },
+        "borderapp": {
+          "isVar": true,
+          "key": "$borderapp",
+          "name": "c-borderapp",
+          "val": "#e6e8ea",
+          "variable": ""
+        },
+        "red": {
+          "isVar": true,
+          "key": "$red",
+          "name": "c-red",
+          "val": "#e5425c",
+          "variable": ""
+        },
+        "grey": {
+          "isVar": true,
+          "key": "$grey",
+          "name": "c-grey",
+          "val": "#d7d7d6",
+          "variable": ""
+        },
+        "grey999": {
+          "isVar": true,
+          "key": "$grey999",
+          "name": "c-grey999",
+          "val": "#999999",
+          "variable": ""
         }
       },
       "radius": {
@@ -52788,6 +52816,34 @@
         "key": "$error",
         "name": "c-error",
         "val": "#e53637",
+        "variable": ""
+      },
+      "$color.borderapp": {
+        "isVar": true,
+        "key": "$borderapp",
+        "name": "c-borderapp",
+        "val": "#e6e8ea",
+        "variable": ""
+      },
+      "$color.red": {
+        "isVar": true,
+        "key": "$red",
+        "name": "c-red",
+        "val": "#e5425c",
+        "variable": ""
+      },
+      "$color.grey": {
+        "isVar": true,
+        "key": "$grey",
+        "name": "c-grey",
+        "val": "#d7d7d6",
+        "variable": ""
+      },
+      "$color.grey999": {
+        "isVar": true,
+        "key": "$grey999",
+        "name": "c-grey999",
+        "val": "#999999",
         "variable": ""
       },
       "$radius.0": {

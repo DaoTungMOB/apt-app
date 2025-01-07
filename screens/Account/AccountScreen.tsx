@@ -1,59 +1,70 @@
 import React from "react";
 import ParallaxScrollView from "@/components/ParallaxScrollView";
-import { Image, Text, XStack, YStack } from "tamagui";
-import { ClipboardEdit } from "@tamagui/lucide-icons";
+import { Avatar, Image, Text, XStack, YStack } from "tamagui";
+import { ChevronRight, ClipboardEdit, LogOut } from "@tamagui/lucide-icons";
+import { AppContainer } from "@/elements";
+import { useRouter } from "expo-router";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { AccountService, useAppAccount } from "@/utils";
+import { Colors } from "@/constants";
 
 export function AccountScreen() {
+  const router = useRouter();
+    const { top } = useSafeAreaInsets();
+    const account = useAppAccount();
+    const logout = async () => {
+      console.log('abc')
+      await AccountService.remove();
+      router.push("/(auth)");
+    };
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: "#D0D0D0", dark: "#353636" }}
-      headerImage={
-        <Image
-          source={{
-            uri: "https://images.unsplash.com/photo-1732823170284-0d3da1fce106?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-          }}
-          w={"100%"}
-          h={"100%"}
-          objectFit="cover"
-        />
-      }
-    >
-      <YStack px={15} gap={20}>
-        <XStack alignItems="center" justifyContent="space-between">
-          <Text fow={"bold"} fontSize={20} flex={1}>
-            Thông tin Tài khoản
-          </Text>
-          <XStack>
-            <ClipboardEdit size={20} color={"$tint"} />
-          </XStack>
-        </XStack>
-        <YStack gap={10}>
-          <XStack bbc={"$gray1"} bbw={1}>
-            <Text fow={"bold"} fos={16}>
-              Họ và tên:{" "}
-            </Text>
-            <Text fos={16}>Nguyễn Văn A</Text>
-          </XStack>
-          <XStack bbc={"$gray1"} bbw={1}>
-            <Text fow={"bold"} fos={16}>
-              Số căn cước công dân:{" "}
-            </Text>
-            <Text fos={16}>0123456789</Text>
-          </XStack>
-          <XStack bbc={"$gray1"} bbw={1}>
-            <Text fow={"bold"} fos={16}>
-              Số điện thoại:{" "}
-            </Text>
-            <Text fos={16}>01234567</Text>
-          </XStack>
-          <XStack bbc={"$gray1"} bbw={1}>
-            <Text fow={"bold"} fos={16}>
-              Email:{" "}
-            </Text>
-            <Text fos={16}>abc@gmail.com</Text>
-          </XStack>
-        </YStack>
+    <AppContainer yStackProps={{ px: 0, pt: top }}>
+      <XStack alignItems="center" justifyContent="center" pt={20}>
+        <Avatar circular size="$14">
+          <Avatar.Image
+            accessibilityLabel="Cam"
+            src="https://images.unsplash.com/photo-1548142813-c348350df52b?&w=150&h=150&dpr=2&q=80"
+          />
+          <Avatar.Fallback backgroundColor="$blue10" />
+        </Avatar>
+      </XStack>
+      <YStack py={20} gap={5}>
+        <Text fos={16} fow={"bold"} textAlign="center">
+          {account?.userProlile?.email}
+        </Text>
+        <Text fos={18} fow={"bold"} textAlign="center">
+          {account?.userProlile?.lastName} {account?.userProlile?.firstName}
+        </Text>
       </YStack>
-    </ParallaxScrollView>
+      <XStack
+        onPress={logout}
+        borderBottomWidth={1}
+        borderTopWidth={1}
+        borderBottomColor={Colors.light.borderapp}
+        borderTopColor={Colors.light.borderapp}
+        px={20}
+        py={10}
+        alignItems="center"
+        justifyContent="space-between"
+      >
+        <Text fos={16} fow={"bold"}>
+          Đăng xuất tài khoản
+        </Text>
+        <LogOut />
+      </XStack>
+      <XStack
+        borderBottomWidth={1}
+        borderBottomColor={Colors.light.borderapp}
+        px={20}
+        py={10}
+        alignItems="center"
+        justifyContent="space-between"
+      >
+        <Text fos={16} fow={"bold"}>
+          Thông tin tài khoản
+        </Text>
+        <ChevronRight />
+      </XStack>
+    </AppContainer>
   );
 }

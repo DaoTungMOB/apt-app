@@ -3,16 +3,18 @@ import { AppContainer } from "@/elements";
 import { Text } from "tamagui";
 import { HomeHeader } from "./items/HomeHeader";
 import { ScrollView } from "react-native";
-import { HomeServices } from "./items/HomeServices";
+import { HomeApartment } from "./items/HomeApartment";
 import { HomeSwipper } from "./items/HomeSwipper";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export function HomeScreen() {
+  const {top} = useSafeAreaInsets()
   return (
-    <AppContainer yStackProps={{ px: 0 }}>
+    <AppContainer yStackProps={{ px: 0, pt: top }}>
       <HomeHeader />
       <ScrollView>
         <HomeSwipper />
-        <HomeServices />
+        <HomeApartment />
       </ScrollView>
     </AppContainer>
   );

@@ -1,17 +1,29 @@
 import { View } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { AppContainer } from "@/elements";
 import { Text } from "tamagui";
 import { LoginSubmit } from "./items/LoginSubmit";
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
 import { LoginContent } from "./items/LoginContent";
 import { Colors, devide_height } from "@/constants";
+import { AccountService, ROLE, useAppAccount } from "@/utils";
 
 export function LoginScreen() {
+  const account = useAppAccount();
+  const router = useRouter();
   const form = useForm();
+
+  useEffect(() => {
+    if (account?.userProlile?.role === ROLE.ADMIN)
+      router.replace("/(tabs_admin)");
+    if (account?.userProlile?.role === ROLE.USER)
+      router.replace("/(tabs_user)");
+  }, [account]);
+
+  if (account) return null;
   return (
-    <AppContainer {...form} yStackProps={{pt: devide_height / 8}}>
+    <AppContainer {...form} yStackProps={{ pt: devide_height / 8 }}>
       <Text fow={"bold"} fos={24} pb={10} ta={"center"} color={"$tint"}>
         Đăng nhập
       </Text>

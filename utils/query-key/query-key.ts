@@ -1,0 +1,9 @@
+export const QUERY_KEY = {
+  APP: "APP",
+  ADMIN: "ADMIN",
+  USER: "USER",
+  APT: "APT",
+  ACCOUNT: "ACCOUNT",
+  AVIABLE_APARTMENT: "AVIABLE_APARTMENT",
+  MY_APT: 'MY_APT'
+};

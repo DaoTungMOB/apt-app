@@ -13,7 +13,7 @@ export function AppContainer(props: Props) {
   const { top } = useSafeAreaInsets();
   return (
     <FormProvider {...methods}>
-      <YStack flex={1} bg={"#fff"} pt={top} px={15} {...yStackProps} >
+      <YStack flex={1} bg={"#fff"} px={15} {...yStackProps} >
         {children}
       </YStack>
     </FormProvider>
