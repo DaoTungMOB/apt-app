@@ -11,10 +11,10 @@ export function AptInformation({ label, content }: Props) {
       py={10}
       px={15}
     >
-      <Text flex={0.4} fos={16} fow={"bold"}>
+      <Text flex={0.4}  ff={"$bold"}>
         {label}
       </Text>
-      <Text flex={0.6} fos={16}>
+      <Text flex={0.6} >
         {content}
       </Text>
     </XStack>

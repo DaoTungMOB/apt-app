@@ -4,10 +4,8 @@ import {
   BottomSheetFlatList,
   BottomSheetFooter,
   BottomSheetModal,
-  BottomSheetModalProvider,
   BottomSheetView,
 } from "@gorhom/bottom-sheet";
-import { useQueryUser } from "../modules/useQueryUser";
 import { Text, XStack } from "tamagui";
 import AppSelectUserItem from "./AppSelectUserItem";
 import { FormProvider, useForm } from "react-hook-form";
@@ -19,6 +17,7 @@ import Toast from "react-native-toast-message";
 import { FetchApi, QUERY_KEY } from "@/utils";
 import { useLocalSearchParams } from "expo-router";
 import { useQueryClient } from "@tanstack/react-query";
+import { useQueryUser } from "@/elements/AppSelectAccount/modules/useQueryUser";
 
 const schema = yup
   .object({
@@ -41,7 +40,7 @@ export function AptSelectUser({ initialUser, status }: Props) {
       console.log("data ~ ", data);
       const { userId } = data;
       console.log("status ~ ", { aptId: apt_id, data: { status, userId } });
-      await FetchApi.changeUserApt({ aptId: apt_id, data: { status, userId } });
+      // await FetchApi.changeUserApt({ aptId: apt_id, data: { status, userId } });
       selectUserBottomSheetModalRef?.current?.close();
       Toast.show({ type: "success", text1: "Thành công" });
       queryClient.refetchQueries([
@@ -89,7 +88,6 @@ export function AptSelectUser({ initialUser, status }: Props) {
   );
   return (
     <FormProvider {...forms}>
-      <BottomSheetModalProvider>
         <BottomSheetModal
           ref={selectUserBottomSheetModalRef}
           backdropComponent={renderBackdrop}
@@ -114,7 +112,6 @@ export function AptSelectUser({ initialUser, status }: Props) {
             }}
           />
         </BottomSheetModal>
-      </BottomSheetModalProvider>
     </FormProvider>
   );
 }

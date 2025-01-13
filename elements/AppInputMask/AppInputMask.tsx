@@ -4,7 +4,6 @@ import { XStack, YStack } from "tamagui";
 import MaskInput, { MaskInputProps } from "react-native-mask-input";
 import { StyleSheet, View, ViewStyle } from "react-native";
 import { useStyleInput } from "./modules/useStyleInput";
-import { useIconStyle } from "./modules/useIconStyle";
 import { Colors } from "@/constants";
 import { AppTextLabel } from "../AppTextLabel";
 import { AppTextError } from "../AppTextError";
@@ -15,6 +14,7 @@ type Props = UseControllerProps &
     iconRight?: () => JSX.Element;
     iconLeft?: () => JSX.Element;
     containerStyle?: ViewStyle;
+    returnType?: "masked" | "unmasked";
   };
 
 export function AppInputMask({
@@ -28,6 +28,7 @@ export function AppInputMask({
   iconLeft,
   iconRight,
   containerStyle,
+  returnType = "masked",
   ...maskInputProps
 }: Props) {
   const {
@@ -41,29 +42,30 @@ export function AppInputMask({
     rules,
     shouldUnregister,
   });
-  const inputStyles = useStyleInput({
-    disabled,
-    error: !!error?.message,
-    iconLeft: !!iconLeft,
-    iconRight: !!iconRight,
-  });
-  const iconStyles = useIconStyle({ disabled, error: !!error?.message });
+  const { borderColor, borderLeftWidth, borderRightWidth, backgroundColor } =
+    useStyleInput({
+      disabled,
+      error: !!error?.message,
+      iconLeft: !!iconLeft,
+      iconRight: !!iconRight,
+    });
 
   return (
     <View style={containerStyle}>
       <AppTextLabel label={label} pb={5} />
-      <XStack alignItems="center">
+      <XStack
+        alignItems="center"
+        borderWidth={1}
+        height={46}
+        borderRadius={12}
+        style={{ borderColor, backgroundColor }}
+      >
         {!!iconLeft && (
           <XStack
             p={14}
             alignItems="center"
             justifyContent="center"
-            height={46}
-            borderWidth={1}
-            borderTopLeftRadius={12}
-            borderBottomLeftRadius={12}
-            borderRightWidth={0}
-            {...iconStyles}
+            height={44}
           >
             {iconLeft?.()}
           </XStack>
@@ -71,10 +73,15 @@ export function AppInputMask({
         <MaskInput
           value={value}
           onChangeText={(masked, unmasked) => {
-            console.log(unmasked);
-            onChange(unmasked);
+            // console.log(unmasked);
+            if (!returnType) return;
+            if (returnType === "masked") onChange(masked);
+            if (returnType === "unmasked") onChange(unmasked);
           }}
-          style={[styles.input, inputStyles]}
+          style={[
+            styles.input,
+            { borderColor, borderRightWidth, borderLeftWidth },
+          ]}
           editable={!disabled}
           placeholderTextColor={Colors.light.grey999}
           {...maskInputProps}
@@ -84,12 +91,7 @@ export function AppInputMask({
             px={14}
             alignItems="center"
             justifyContent="center"
-            height={46}
-            borderWidth={1}
-            borderTopRightRadius={12}
-            borderBottomRightRadius={12}
-            borderLeftWidth={0}
-            {...iconStyles}
+            height={44}
           >
             {iconRight?.()}
           </XStack>
@@ -103,8 +105,7 @@ export function AppInputMask({
 const styles = StyleSheet.create({
   input: {
     flex: 1,
-    height: 46,
+    height: 45,
     padding: 12,
-    borderWidth: 1,
   },
 });

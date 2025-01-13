@@ -1,5 +1,5 @@
 import { Colors } from "@/constants";
-import { StyleProp, ViewStyle } from "react-native";
+import { ViewStyle } from "react-native";
 
 type Props = {
   iconLeft?: boolean;
@@ -7,37 +7,32 @@ type Props = {
   error?: boolean;
   disabled?: boolean;
 };
-type TBorderStyles = Pick<
+type TStyles = Pick<
   ViewStyle,
-  | "borderColor"
-  | "borderRadius"
-  | "borderTopLeftRadius"
-  | "borderTopRightRadius"
-  | "borderBottomLeftRadius"
-  | "borderBottomRightRadius"
+  "borderColor" | "borderLeftWidth" | "borderRightWidth" | "backgroundColor"
 >;
-type TBackgroundStyles = Pick<ViewStyle, "backgroundColor">;
 
 export function useStyleInput({ iconLeft, iconRight, disabled, error }: Props) {
-  const borderStyle: TBorderStyles = { borderRadius: 12 };
-  const backgroundStyle: TBackgroundStyles = {
-    backgroundColor: Colors.light.background,
-  };
-  if (disabled) {
-    backgroundStyle["backgroundColor"] = Colors.light.grey;
-    borderStyle["borderColor"] = Colors.light.grey;
-  }
-  if (!error) borderStyle["borderColor"] = Colors.light.borderapp;
-  if (error) borderStyle["borderColor"] = Colors.light.red;
+  const styles: TStyles = { borderColor: Colors.light.borderapp };
 
   if (iconLeft) {
-    borderStyle["borderBottomLeftRadius"] = 0;
-    borderStyle["borderTopLeftRadius"] = 0;
+    styles["borderLeftWidth"] = 1;
   }
   if (iconRight) {
-    borderStyle["borderBottomRightRadius"] = 0;
-    borderStyle["borderTopRightRadius"] = 0;
+    styles["borderRightWidth"] = 1;
   }
+  if (disabled) {
+    styles["borderColor"] = Colors.light.grey;
+    styles["backgroundColor"] = Colors.light.grey;
+  }
+  if (!disabled) styles["backgroundColor"] = Colors.light.background;
+  if (!error) styles["borderColor"] = Colors.light.borderapp;
+  if (error) styles["borderColor"] = Colors.light.red;
 
-  return { ...backgroundStyle, ...borderStyle };
+  return {
+    borderColor: styles.borderColor,
+    borderLeftWidth: styles.borderLeftWidth,
+    borderRightWidth: styles.borderRightWidth,
+    backgroundColor: styles.backgroundColor,
+  };
 }

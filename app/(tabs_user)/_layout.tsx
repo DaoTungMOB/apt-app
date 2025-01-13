@@ -17,7 +17,9 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
-        headerShown: false,
+        headerStyle: { backgroundColor: Colors.light.tint },
+        headerTitleStyle: { color: Colors.light.background },
+        headerTintColor: Colors.light.background,
         tabBarButton: HapticTab,
         tabBarBackground: TabBarBackground,
         tabBarStyle: Platform.select({
@@ -36,15 +38,15 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => (
             <IconSymbol size={24} name="house.fill" color={color} />
           ),
+          headerShown: false,
         }}
       />
       <Tabs.Screen
-        name="myapt"
+        name="myApt"
         options={{
           title: "Căn hộ của tôi",
-          tabBarIcon: ({ color }) => (
-            <Building2 size={24} color={color} />
-          ),
+          tabBarIcon: ({ color }) => <Building2 size={24} color={color} />,
+          headerShown: false
         }}
       />
       <Tabs.Screen

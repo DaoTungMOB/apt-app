@@ -8,7 +8,7 @@ import TabBarBackground from "@/components/ui/TabBarBackground";
 import { Colors } from "@/constants/Colors";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import { Building2, CircleUserRound } from "@tamagui/lucide-icons";
+import { Building2, CircleUserRound, Mails } from "@tamagui/lucide-icons";
 import { HeaderRightApt } from "@/screens";
 
 export default function TabLayout() {
@@ -18,7 +18,6 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
-        headerShown: false,
         tabBarButton: HapticTab,
         tabBarBackground: TabBarBackground,
         tabBarStyle: Platform.select({
@@ -28,6 +27,8 @@ export default function TabLayout() {
           },
           default: {},
         }),
+        headerStyle: { backgroundColor: Colors.light.tint },
+        headerTitleStyle: { color: Colors.light.background },
       }}
     >
       <Tabs.Screen
@@ -45,6 +46,15 @@ export default function TabLayout() {
         options={{
           title: "Căn hộ",
           tabBarIcon: ({ color }) => <Building2 size={24} color={color} />,
+          headerShown: false
+        }}
+      />
+      <Tabs.Screen
+        name="contact"
+        options={{
+          title: "Liên hệ",
+          tabBarIcon: ({ color }) => <Mails size={24} color={color} />,
+          headerShown: false
         }}
       />
       <Tabs.Screen

@@ -5,7 +5,7 @@ type Props = TextProps & { label?: string };
 export function AppTextLabel({ label, ...rest }: Props) {
   if (!label) return null;
   return (
-    <Text fow={"500"} {...rest}>
+    <Text fontFamily={'$bold'} {...rest}>
       {label}
     </Text>
   );

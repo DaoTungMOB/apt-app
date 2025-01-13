@@ -4,8 +4,13 @@ import { AppTextError } from "../AppTextError";
 import { Colors } from "@/constants";
 import { Input, InputProps, XStack, YStack } from "tamagui";
 import { AppTextLabel } from "../AppTextLabel";
+import { ViewStyle } from "react-native";
 
-type Props = InputProps & UseControllerProps & { label?: string };
+type Props = InputProps &
+  UseControllerProps & {
+    label?: string;
+    containerStyle?: StyleProp<ViewStyle>;
+  };
 
 export function AppTextInput(props: Props) {
   const {
@@ -16,6 +21,7 @@ export function AppTextInput(props: Props) {
     disabled,
     rules,
     shouldUnregister,
+    containerStyle,
     ...textInputProps
   } = props;
   const {
@@ -31,7 +37,7 @@ export function AppTextInput(props: Props) {
   });
 
   return (
-    <YStack gap={2}>
+    <YStack gap={2} style={containerStyle}>
       <AppTextLabel label={label} pb={5} />
       <XStack alignItems="stretch">
         <Input

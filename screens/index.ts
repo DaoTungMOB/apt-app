@@ -4,3 +4,7 @@ export * from "./Account";
 export * from "./Home";
 export * from "./MyApt";
 export * from "./admin";
+export * from "./UpdateProfile";
+export * from "./Contact";
+export * from "./MyAptDetail";
+export * from "./MyAptUtilityDetail";

@@ -7,7 +7,7 @@ import { CreateAptSubmit } from "./items/CreateAptSubmit";
 export function CreateApt() {
   const forms = useForm();
   return (
-    <AppContainer {...forms} yStackProps={{ pt: 0 }}>
+    <AppContainer form={forms}>
       <CreateAptForm />
       <CreateAptSubmit />
     </AppContainer>

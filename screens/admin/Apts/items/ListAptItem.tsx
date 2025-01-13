@@ -42,19 +42,19 @@ export function ListAptItem({ data }: Props) {
             uri: thumbnail || defaultImage,
           }}
           width={devide_with / 3}
-          aspectRatio={1}
+          aspectRatio={4/5}
         />
         <YStack gap={5} flex={1}>
           <AptStatus status={status} />
           <YStack gap={5} pl={10}>
             <XStack alignItems="center" justifyContent="space-between">
               <Text>
-                Mã căn hộ: <Text fontWeight={"bold"}>{code}</Text>
+                Mã căn hộ: <Text fontFamily={"$bold"}>{code}</Text>
               </Text>
             </XStack>
             <Text>
               Thông tin căn hộ:{" "}
-              <Text fontWeight={"bold"}>
+              <Text fontFamily={"$bold"}>
                 {floorNumber} tầng | {area} m2
               </Text>
             </Text>

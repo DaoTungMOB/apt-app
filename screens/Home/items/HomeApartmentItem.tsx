@@ -12,30 +12,35 @@ export function HomeApartmentItem({ apt }: Props) {
     <XStack
       borderBottomWidth={1}
       borderBlockColor={Colors.light.borderapp}
+      mx={10}
+      py={5}
       gap={10}
+      flex={1}
+      onPress={() => {}}
     >
       <Image
         source={{ uri: apt?.thumbnail || default_img }}
-        width={devide_with / 3}
-        aspectRatio={1}
-        borderRadius={4}
+        width={devide_with / 3.3}
+        aspectRatio={3 / 4}
+        borderRadius={2}
       />
-      <YStack py={5} justifyContent="space-between">
+      <YStack flex={1}>
         <Text fos={16}>
-          Mã căn hộ: <Text fow={"bold"}>{apt?.code}</Text>
+          Mã: <Text ff={"$bold"}>{apt?.code}</Text>{" "}
+          <Text fos={16}>
+            ({apt?.floorNumber} tầng, {apt?.area} m2)
+          </Text>
         </Text>
         <Text fos={16}>
-          Số tầng: <Text fow={"bold"}>{apt?.floorNumber} tầng</Text>
+          Giá thuê: <Text ff={"$bold"}>{formatVND(apt?.rentPrice)}</Text>
         </Text>
         <Text fos={16}>
-          Diện tích: <Text fow={"bold"}>{apt?.area}m2</Text>
+          Giá bán: <Text ff={"$bold"}>{formatVND(apt?.sellPrice)}</Text>
         </Text>
-        <Text fos={16}>
-          Giá thuê: <Text fow={"bold"}>{formatVND(apt?.rentPrice)}</Text>
-        </Text>
-        <Text fos={16}>
-          Giá bán: <Text fow={"bold"}>{formatVND(apt?.sellPrice)}</Text>
-        </Text>
+        {/* <Text color={"#4b5264"} fos={16} mt={5} numberOfLines={3}>
+          Tamagui UI is an open source collection of "compound components " that
+          all work on both on web and React Native.
+        </Text> */}
       </YStack>
     </XStack>
   );

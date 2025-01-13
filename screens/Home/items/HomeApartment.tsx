@@ -12,10 +12,10 @@ export function HomeApartment() {
   console.log("data ~ ", data);
   if (!data || data?.length === 0) return null;
   return (
-    <YStack gap={10}>
-      <H4 p={10} pb={0} fow={"bold"}>
-        Danh sách căn hộ trống
-      </H4>
+    <YStack gap={10} mt={25}>
+      <H5 p={10} pb={10} ff={"$bold"}>
+        Căn hộ trống
+      </H5>
       <YStack>
         {data.map((item) => (
           <HomeApartmentItem key={item._id} apt={item} />

@@ -38,6 +38,24 @@ export default function Layout() {
           headerTitle: "Chỉnh sửa căn hộ",
         }}
       />
+      <Stack.Screen
+        name="utility"
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="contract"
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="invoice"
+        options={{
+          headerShown: false,
+        }}
+      />
     </Stack>
   );
 }

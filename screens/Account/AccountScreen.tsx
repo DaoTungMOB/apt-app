@@ -1,25 +1,27 @@
 import React from "react";
 import ParallaxScrollView from "@/components/ParallaxScrollView";
-import { Avatar, Image, Text, XStack, YStack } from "tamagui";
-import { ChevronRight, ClipboardEdit, LogOut } from "@tamagui/lucide-icons";
-import { AppContainer } from "@/elements";
+import { Avatar, Image, Text, View, XStack, YStack } from "tamagui";
+import { ChevronRightSquare, LogOut } from "@tamagui/lucide-icons";
+import { AppContainer, AppLoading } from "@/elements";
 import { useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { AccountService, useAppAccount } from "@/utils";
+import { AccountService } from "@/utils";
 import { Colors } from "@/constants";
+import { AccountInfoField } from "./items/AccountInfoField";
+import { useQueryMyProfile } from "../UpdateProfile/modules/useQueryMyProfile";
 
 export function AccountScreen() {
   const router = useRouter();
-    const { top } = useSafeAreaInsets();
-    const account = useAppAccount();
-    const logout = async () => {
-      console.log('abc')
-      await AccountService.remove();
-      router.push("/(auth)");
-    };
+  const { top } = useSafeAreaInsets();
+  const { data, isLoading } = useQueryMyProfile();
+  const logout = async () => {
+    await AccountService.remove();
+    router.push("/(auth)");
+  };
+  if (isLoading) return <AppLoading />;
   return (
-    <AppContainer yStackProps={{ px: 0, pt: top }}>
-      <XStack alignItems="center" justifyContent="center" pt={20}>
+    <AppContainer>
+      <XStack alignItems="center" justifyContent="center" pt={50}>
         <Avatar circular size="$14">
           <Avatar.Image
             accessibilityLabel="Cam"
@@ -29,42 +31,31 @@ export function AccountScreen() {
         </Avatar>
       </XStack>
       <YStack py={20} gap={5}>
-        <Text fos={16} fow={"bold"} textAlign="center">
-          {account?.userProlile?.email}
+        <Text fos={16} ff={"$bold"} textAlign="center">
+          {data?.email}
         </Text>
-        <Text fos={18} fow={"bold"} textAlign="center">
-          {account?.userProlile?.lastName} {account?.userProlile?.firstName}
+        <Text fos={18} ff={"$bold"} textAlign="center">
+          {data?.lastName} {data?.firstName}
         </Text>
       </YStack>
-      <XStack
-        onPress={logout}
-        borderBottomWidth={1}
+      <View
+        mt={20}
+        mx={10}
         borderTopWidth={1}
-        borderBottomColor={Colors.light.borderapp}
         borderTopColor={Colors.light.borderapp}
-        px={20}
-        py={10}
-        alignItems="center"
-        justifyContent="space-between"
       >
-        <Text fos={16} fow={"bold"}>
-          Đăng xuất tài khoản
-        </Text>
-        <LogOut />
-      </XStack>
-      <XStack
-        borderBottomWidth={1}
-        borderBottomColor={Colors.light.borderapp}
-        px={20}
-        py={10}
-        alignItems="center"
-        justifyContent="space-between"
-      >
-        <Text fos={16} fow={"bold"}>
-          Thông tin tài khoản
-        </Text>
-        <ChevronRight />
-      </XStack>
+        <AccountInfoField
+          label={"Thay đổi thông tin tài khoản"}
+          Icon={ChevronRightSquare}
+          onPress={() => router.push("/updateProfile")}
+        />
+        <AccountInfoField label={"Đổi mật khẩu"} Icon={ChevronRightSquare} />
+        <AccountInfoField
+          label={"Đăng xuất tài khoản"}
+          Icon={LogOut}
+          onPress={logout}
+        />
+      </View>
     </AppContainer>
   );
 }

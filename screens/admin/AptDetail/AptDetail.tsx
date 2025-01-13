@@ -11,18 +11,21 @@ import { AptOwner } from "./items/AptOwner";
 import { AptImages } from "./items/AptImages";
 import { ScrollView } from "react-native";
 import { AptSelectUser } from "./items/AptSelectUser";
-import { useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
+import { AptDetailUtilities } from "./items/AptDetailUtilities";
+import { AppDetailContracts } from "./items/AppDetailContracts";
 
 export function AptDetail() {
   const forms = useForm();
   const status = forms.watch("status");
   const { apt_id } = useLocalSearchParams();
   const { data, isLoading } = useQueryApt(apt_id);
+  console.log(data);
   if (isLoading) return <AppLoading />;
   return (
     <>
-      <AppContainer yStackProps={{ px: 0, py: 0 }} {...forms}>
-        <ScrollView>
+      <FormProvider {...forms}>
+        <ScrollView style={{ backgroundColor: Colors.light.background }}>
           <AptInformation label={"Mã căn hộ:"} content={data?.code} />
           <XStack
             borderBottomWidth={1}
@@ -30,7 +33,7 @@ export function AptDetail() {
             py={10}
             px={15}
           >
-            <Text flex={0.4} fos={16} fow={"bold"}>
+            <Text flex={0.4} fos={16} ff={"$bold"}>
               Trạng thái:
             </Text>
             <XStack flex={0.6}>
@@ -55,9 +58,11 @@ export function AptDetail() {
             userProfile={data?.userProfile}
             userId={data?.userId}
           />
+          <AptDetailUtilities />
           <AptImages imageUrls={data?.imageUrls} />
+          <AppDetailContracts />
         </ScrollView>
-      </AppContainer>
+      </FormProvider>
       <AptSelectUser initialUser={data?.userId} status={status} />
     </>
   );

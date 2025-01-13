@@ -16,7 +16,7 @@ export default function MyProfile() {
     router.push("/(auth)");
   };
   return (
-    <AppContainer yStackProps={{ px: 0, pt: top }}>
+    <AppContainer>
       <XStack alignItems="center" justifyContent="center" pt={20}>
         <Avatar circular size="$14">
           <Avatar.Image

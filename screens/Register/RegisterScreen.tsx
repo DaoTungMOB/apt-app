@@ -7,14 +7,30 @@ import { RegisterSubmit } from "./items/RegisterSubmit";
 import { Link } from "expo-router";
 import { Colors, devide_height } from "@/constants";
 import { ScrollView } from "react-native";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
+const schema = yup
+  .object({
+    email: yup
+      .string()
+      .required("Vui lòng tạo thông tin này")
+      .email("Không đúng định dạng email"),
+    firstName: yup.string().required("Vui lòng tạo thông tin này"),
+    lastName: yup.string().required("Vui lòng tạo thông tin này"),
+    cccd: yup.string().required("Vui lòng tạo thông tin này"),
+    phone: yup.string().required("Vui lòng tạo thông tin này"),
+    birthDay: yup.string().required("Vui lòng tạo thông tin này"),
+    password: yup.string().required("Vui lòng tạo thông tin này"),
+  })
+  .required();
 export function RegisterScreen() {
-  const form = useForm();
+  const form = useForm({ resolver: yupResolver(schema) });
   return (
-    <AppContainer {...form}>
+    <AppContainer form={form}>
       <ScrollView
-        style={{ paddingTop: 50, paddingBottom: 100 }}
-        contentContainerStyle={{ paddingBottom: 120 }}
+        style={{paddingHorizontal: 15}}
+        contentContainerStyle={{paddingVertical: 35}}
         showsVerticalScrollIndicator={false}
       >
         <Text fow={"bold"} fos={24} pb={10} ta={"center"} color={"$tint"}>

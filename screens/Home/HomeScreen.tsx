@@ -10,7 +10,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 export function HomeScreen() {
   const {top} = useSafeAreaInsets()
   return (
-    <AppContainer yStackProps={{ px: 0, pt: top }}>
+    <AppContainer>
       <HomeHeader />
       <ScrollView>
         <HomeSwipper />

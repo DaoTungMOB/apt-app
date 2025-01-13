@@ -11,7 +11,7 @@ export function AppButtonNormal(props: Props) {
     return <Spinner color={"$background"} />;
   };
   return (
-    <Button bg={"$tint"} color={"$background"} disabled={isLoading} {...rest}>
+    <Button bg={"$tint"} color={"$background"} disabled={isLoading} fontFamily={'$semiBold'} fos={16} {...rest}>
       {renderContent()}
     </Button>
   );
