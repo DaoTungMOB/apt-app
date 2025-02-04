@@ -41,8 +41,8 @@ export function AptDetail() {
             </XStack>
           </XStack>
           <AptInformation
-            label={"Số tầng:"}
-            content={`${data?.floorNumber} tầng`}
+            label={"Tầng:"}
+            content={`Tầng ${data?.floorNumber}`}
           />
           <AptInformation label={"Diện tích:"} content={`${data?.area}m2`} />
           <AptInformation

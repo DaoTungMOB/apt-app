@@ -30,7 +30,7 @@ export function CreateAptSubmit() {
   } = useFormContext();
   // console.log("errors ~ ", errors);
   const onsubmit = async (data: TCrateAptForm) => {
-    try {
+    try {console.log('data ~ ', data)
       appGlobalLoadingRef?.current.show();
       const thumbnail = await uploadMultipleToCloudinary(data.thumbnail);
       const imageUrls = await uploadMultipleToCloudinary(data.imageUrls);

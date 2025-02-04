@@ -14,9 +14,9 @@ export function MyAptUtilityDetailScreen() {
 
   return (
     <ScrollView style={{ backgroundColor: Colors.light.background }}>
-      <AptInformation label={"Tên dịch vụ:"} content={data?.title} />
+      {/* <AptInformation label={"Tên dịch vụ:"} content={data?.title} />
       <AptInformation label={"Giá dịch vụ:"} content={data?.price} />
-      <AptInformation label={"Mô tả dịch vụ:"} content={data?.description} />
+      <AptInformation label={"Mô tả dịch vụ:"} content={data?.description} /> */}
       <MyUtilityDetailInvoice />
     </ScrollView>
   );

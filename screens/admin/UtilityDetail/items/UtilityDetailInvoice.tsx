@@ -37,14 +37,18 @@ export function UtilityDetailInvoice() {
   const renderContent = () => {
     if (!data || data.length === 0) return null;
     return (
-      <View>
+      <View gap={10}>
         {data.map((item) => {
           return (
             <View
-              borderBottomWidth={1}
-              borderBottomColor={"$borderapp"}
+              // borderBottomWidth={1}
+              // borderBottomColor={"$borderapp"}
               px={15}
               py={10}
+              mx={15}
+              backgroundColor={"#fff"}
+              elevationAndroid={3}
+              borderRadius={12}
             >
               <XStack alignItems="center" justifyContent="space-between">
                 <Text ff={"$bold"}>{item.title}</Text>{" "}

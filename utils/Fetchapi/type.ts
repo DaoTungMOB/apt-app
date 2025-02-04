@@ -15,6 +15,7 @@ export type TAccountResponse = {
     createdAt?: Date;
     updatedAt?: Date;
     deletedAt?: Date;
+    avatar?: string | null;
   };
 };
 

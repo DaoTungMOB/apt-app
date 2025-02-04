@@ -69,8 +69,24 @@ export default function RootLayout() {
                   }}
                 />
                 <Stack.Screen
-                  name="contact"
+                  name="createContact"
                   options={{ headerShown: true, title: "Liên hệ" }}
+                />
+                <Stack.Screen
+                  name="changePassword"
+                  options={{ headerShown: true, title: "Đổi mật khẩu" }}
+                />
+                <Stack.Screen
+                  name="aptAvaiableDetail"
+                  options={{ headerShown: true, title: "Chi tiết căn hộ" }}
+                />
+                <Stack.Screen
+                  name="payment"
+                  options={{ headerShown: true, title: "Thanh toán hóa đơn" }}
+                />
+                <Stack.Screen
+                  name="forgotPassword"
+                  options={{ headerShown: true, title: 'Quên mật khẩu'}}
                 />
                 <Stack.Screen name="(tabs_user)" />
                 <Stack.Screen name="(tabs_admin)" />

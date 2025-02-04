@@ -11,7 +11,7 @@ import { useNavigation } from "expo-router";
 
 export type TDataUpdateProfile = Pick<
   TAccount,
-  "birthDay" | "cccd" | "firstName" | "lastName" | "phone"
+  "birthDay" | "cccd" | "firstName" | "lastName" | "phone" | 'avatar'
 >;
 export function UpdateProfileSubmit() {
   const queryClient = useQueryClient();

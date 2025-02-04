@@ -10,11 +10,11 @@ export function MyAptDetailUtilities() {
   const { apt_id } = useLocalSearchParams();
   const router = useRouter();
   const { data } = useQueryAptDetailUtilities(apt_id);
-  // console.log(data);
+  console.log('data utility ~ ',data);
   const renderListUtility = () => {
     if (!data || data.length === 0) return;
     return (
-      <View>
+      <View pb={10} gap={10}>
         {data.map((item) => {
           return (
             <View
@@ -27,8 +27,12 @@ export function MyAptDetailUtilities() {
               key={item._id}
               borderBottomWidth={1}
               borderBottomColor={"$borderapp"}
+              mx={15}
               px={15}
               py={10}
+              backgroundColor={"#fff"}
+              elevationAndroid={3}
+              borderRadius={12}
             >
               <Text>
                 Dịch vụ: <Text ff={"$bold"}>{item.title}</Text>

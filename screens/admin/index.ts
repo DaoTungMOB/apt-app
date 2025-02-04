@@ -7,3 +7,4 @@ export * from "./ListContact";
 export * from "./Contract";
 export * from "./UtilityDetail";
 export * from "./AddInvoice";
+export * from "./EditUtility";

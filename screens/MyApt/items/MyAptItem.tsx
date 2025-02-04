@@ -21,19 +21,17 @@ export function MyAptItem({ apt }: Props) {
       borderBottomWidth={1}
       borderBlockColor={Colors.light.borderapp}
       gap={10}
+      pb={5}
     >
       <Image
         source={{ uri: apt?.thumbnail || default_img }}
         width={devide_with / 3}
-        aspectRatio={3 / 4}
+        aspectRatio={1}
         borderRadius={4}
       />
       <YStack py={5} gap={5}>
         <Text fos={16}>
           Mã căn hộ: <Text ff={"$bold"}>{apt?.code}</Text>
-        </Text>
-        <Text fos={16}>
-          Số tầng: <Text ff={"$bold"}>{apt?.floorNumber} tầng</Text>
         </Text>
         <Text fos={16}>
           Diện tích: <Text ff={"$bold"}>{apt?.area}m2</Text>

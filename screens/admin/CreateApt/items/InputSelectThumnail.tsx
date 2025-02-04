@@ -7,15 +7,18 @@ import { pickImage } from "@/utils";
 import { PickedImage } from "@/utils";
 import { Image, YStack } from "tamagui";
 import { devide_with } from "@/constants";
+import { UseControllerProps } from "react-hook-form";
 
-export function InputSelectThumnail() {
+type Props = { defaultImages?: string[] } & UseControllerProps;
+export function InputSelectThumnail({ defaultImages, rules }: Props) {
+  // console.log("defaultImages ~ ", defaultImages);
   const { control } = useFormContext();
   const {
     field: { value, onChange },
   } = useController({
     control,
     name: "thumbnail",
-    rules: { required: { value: true, message: "Không được để trống" } },
+    rules,
   });
 
   const onPress = async () => {
@@ -26,6 +29,22 @@ export function InputSelectThumnail() {
     } catch (error) {
       console.warn(error);
     }
+  };
+  const renderDefaultImage = () => {
+    if (!defaultImages || value) return null;
+    return (
+      <View>
+        {defaultImages.map((item) => (
+          <Image
+            key={item}
+            source={{ uri: item }}
+            height={((devide_with - 15 * 2) * 3) / 4}
+            width={devide_with - 15 * 2}
+            borderRadius={12}
+          />
+        ))}
+      </View>
+    );
   };
   const renderImages = () => {
     if (!value) return null;
@@ -56,6 +75,7 @@ export function InputSelectThumnail() {
           iconLeft={() => <ImageUp size={16} />}
         />
       </TouchableOpacity>
+      {renderDefaultImage()}
       {renderImages()}
     </YStack>
   );

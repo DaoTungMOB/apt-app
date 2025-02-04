@@ -1,7 +1,7 @@
 import { ScrollView } from "react-native";
 import React from "react";
 import { Text, YStack } from "tamagui";
-import { AppInputMask, AppTextInput } from "@/elements";
+import { AppInputMask, AppTextInput, vndMask } from "@/elements";
 import { useFormContext } from "react-hook-form";
 import { Colors } from "@/constants";
 import { InputSelectThumnail } from "./InputSelectThumnail";
@@ -14,8 +14,12 @@ export function CreateAptForm() {
       contentContainerStyle={{ gap: 20, paddingVertical: 15 }}
       showsVerticalScrollIndicator={false}
     >
-      <InputSelectThumnail />
-      <InputSelectImages />
+      <InputSelectThumnail
+        rules={{ required: { value: true, message: "Không được để trống" } }}
+      />
+      <InputSelectImages
+        rules={{ required: { value: true, message: "Không được để trống" } }}
+      />
       <AppInputMask
         control={control}
         name="code"
@@ -26,10 +30,10 @@ export function CreateAptForm() {
       <AppInputMask
         control={control}
         name="floorNumber"
-        label="Số tầng"
-        placeholder="Nhập số tầng của căn hộ"
+        label="Tầng số"
+        placeholder=""
         rules={{ required: { value: true, message: "Không được để trống" } }}
-        iconRight={() => <Text>Tầng</Text>}
+        // iconRight={() => <Text>Tầng</Text>}
       />
       <AppInputMask
         control={control}
@@ -48,6 +52,8 @@ export function CreateAptForm() {
           required: { value: true, message: "Không được để trống" },
           min: { value: 0, message: "Giá không thể âm" },
         }}
+        mask={vndMask}
+        returnType="unmasked"
         iconRight={() => <Text>VND</Text>}
       />
       <AppInputMask
@@ -56,6 +62,8 @@ export function CreateAptForm() {
         label="Giá bán"
         placeholder="Nhập giá bán của căn hộ"
         rules={{ required: { value: true, message: "Không được để trống" } }}
+        mask={vndMask}
+        returnType="unmasked"
         iconRight={() => <Text>VND</Text>}
       />
     </ScrollView>

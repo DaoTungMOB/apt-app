@@ -1,17 +1,21 @@
-
 import React from "react";
 import { InputSelectImages } from "../../CreateApt/items/InputSelectImages";
-import { AppInputMask } from "@/elements";
+import { AppInputMask, vndMask } from "@/elements";
 import { Text } from "tamagui";
 import { useFormContext } from "react-hook-form";
 import { InputSelectThumnail } from "../../CreateApt/items/InputSelectThumnail";
+import { useQueryApt } from "../../AptDetail/modules/useQueryApt";
+import { useLocalSearchParams } from "expo-router";
 
 export function EditAptForm() {
+  const { apt_id } = useLocalSearchParams();
+  const { data } = useQueryApt(apt_id);
+  // console.log("data ~", data);
   const { control } = useFormContext();
   return (
     <>
-      <InputSelectThumnail />
-      <InputSelectImages />
+      <InputSelectThumnail defaultImages={[data?.thumbnail]} />
+      <InputSelectImages defaultImages={data?.imageUrls} />
       <AppInputMask
         control={control}
         name="code"
@@ -22,10 +26,10 @@ export function EditAptForm() {
       <AppInputMask
         control={control}
         name="floorNumber"
-        label="Số tầng"
-        placeholder="Nhập số tầng của căn hộ"
+        label="Tầng số"
+        // placeholder="Nhập số tầng của căn hộ"
         rules={{ required: { value: true, message: "Không được để trống" } }}
-        iconRight={() => <Text>Tầng</Text>}
+        // iconRight={() => <Text>Tầng</Text>}
       />
       <AppInputMask
         control={control}
@@ -44,7 +48,9 @@ export function EditAptForm() {
           required: { value: true, message: "Không được để trống" },
           min: { value: 0, message: "Giá không thể âm" },
         }}
+        returnType="unmasked"
         iconRight={() => <Text>VND</Text>}
+        mask={vndMask}
       />
       <AppInputMask
         control={control}
@@ -53,6 +59,8 @@ export function EditAptForm() {
         placeholder="Nhập giá bán của căn hộ"
         rules={{ required: { value: true, message: "Không được để trống" } }}
         iconRight={() => <Text>VND</Text>}
+        mask={vndMask}
+        returnType="unmasked"
       />
     </>
   );

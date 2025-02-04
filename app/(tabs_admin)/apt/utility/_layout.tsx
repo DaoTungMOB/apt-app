@@ -24,6 +24,12 @@ export default function Layout() {
           headerTitle: "Chi tiết dịch vụ",
         }}
       />
+      <Stack.Screen
+        name="editUtility"
+        options={{
+          headerTitle: "Chỉnh sửa dịch vụ",
+        }}
+      />
     </Stack>
   );
 }

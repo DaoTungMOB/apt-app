@@ -1,18 +1,27 @@
 import { TouchableOpacity, View } from "react-native";
 import React from "react";
-import { useController, useFormContext } from "react-hook-form";
+import {
+  useController,
+  UseControllerProps,
+  useFormContext,
+} from "react-hook-form";
 import { Image, XStack, YStack } from "tamagui";
 import { AppInputMask } from "@/elements";
 import { devide_with } from "@/constants";
 import { PickedImage, pickImage } from "@/utils";
 import { ImageUp } from "@tamagui/lucide-icons";
 
+type Props = { defaultImages?: string[] } & UseControllerProps;
 const imageWidth = (devide_with - 15 * 2 - 5.5 * 2) / 3;
-export function InputSelectImages() {
+export function InputSelectImages({ defaultImages, rules }: Props) {
   const { control } = useFormContext();
   const {
     field: { value, onChange },
-  } = useController({ control, name: "imageUrls", rules: {required: {value: true, message: 'Không được để trống'}} });
+  } = useController({
+    control,
+    name: "imageUrls",
+    rules,
+  });
 
   const onPress = async () => {
     try {
@@ -28,7 +37,8 @@ export function InputSelectImages() {
       return (
         <XStack alignItems="center" gap={5} flexWrap="wrap">
           {(value as PickedImage[]).map((item) => (
-            <Image key={item.uri}
+            <Image
+              key={item.uri}
               source={{ uri: item.uri }}
               width={imageWidth}
               height={imageWidth}
@@ -39,6 +49,23 @@ export function InputSelectImages() {
         </XStack>
       );
     }
+  };
+  const renderDefaultImage = () => {
+    if (!defaultImages || value) return null;
+    return (
+      <View>
+        {defaultImages.map((item) => (
+          <Image
+            key={item}
+            source={{ uri: item }}
+            width={imageWidth}
+            height={imageWidth}
+            flexShrink={0}
+            borderRadius={12}
+          />
+        ))}
+      </View>
+    );
   };
   return (
     <YStack gap={5}>
@@ -52,6 +79,7 @@ export function InputSelectImages() {
           iconLeft={() => <ImageUp size={16} />}
         />
       </TouchableOpacity>
+      {renderDefaultImage()}
       {renderImages()}
     </YStack>
   );

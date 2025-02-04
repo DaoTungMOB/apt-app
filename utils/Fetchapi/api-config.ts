@@ -7,7 +7,7 @@ type FailedRequest = {
   resolve: (token: string) => void;
   reject: (error: any) => void;
 };
-const baseURL = "http://192.168.100.5:8017/v1";
+export const baseURL = "http://192.168.1.100:8017/v1";
 const api = axios.create({
   baseURL,
   timeout: 10000,

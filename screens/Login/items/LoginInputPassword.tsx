@@ -26,6 +26,7 @@ export function LoginInputPassword() {
           hitSlop={10}
         />
       )}
+      rules={{ required: { value: true, message: "Không được bỏ trống" } }}
     />
   );
 }

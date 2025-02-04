@@ -45,8 +45,8 @@ export function RegisterContent() {
           name="birthDay"
           control={control}
           label={"Ngày sinh"}
-          placeholder="DD/MM/YYYY"
-          mask={Masks.DATE_DDMMYYYY}
+          placeholder="MM/DD/YYYY"
+          mask={Masks.DATE_MMDDYYYY}
         />
       </XStack>
       <AppTextInput

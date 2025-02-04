@@ -34,11 +34,11 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: "Trang chủ admin",
+          title: "Thống kê",
           tabBarIcon: ({ color }) => (
             <IconSymbol size={24} name="house.fill" color={color} />
           ),
-          headerShown: false,
+          headerShown: true,
         }}
       />
       <Tabs.Screen

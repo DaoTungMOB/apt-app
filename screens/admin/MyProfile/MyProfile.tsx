@@ -7,6 +7,7 @@ import { Colors } from "@/constants";
 import { ChevronRight, LogOut } from "@tamagui/lucide-icons";
 import { useRouter } from "expo-router";
 
+const defaultAvatar = require("@/utils/images/th.jpg");
 export default function MyProfile() {
   const router = useRouter();
   const { top } = useSafeAreaInsets();
@@ -19,10 +20,7 @@ export default function MyProfile() {
     <AppContainer>
       <XStack alignItems="center" justifyContent="center" pt={20}>
         <Avatar circular size="$14">
-          <Avatar.Image
-            accessibilityLabel="Cam"
-            src="https://images.unsplash.com/photo-1548142813-c348350df52b?&w=150&h=150&dpr=2&q=80"
-          />
+          <Avatar.Image accessibilityLabel="Cam" src={defaultAvatar} />
           <Avatar.Fallback backgroundColor="$blue10" />
         </Avatar>
       </XStack>
@@ -42,6 +40,7 @@ export default function MyProfile() {
         borderTopColor={Colors.light.borderapp}
         px={20}
         py={10}
+        mt={20}
         alignItems="center"
         justifyContent="space-between"
       >
@@ -49,19 +48,6 @@ export default function MyProfile() {
           Đăng xuất tài khoản
         </Text>
         <LogOut />
-      </XStack>
-      <XStack
-        borderBottomWidth={1}
-        borderBottomColor={Colors.light.borderapp}
-        px={20}
-        py={10}
-        alignItems="center"
-        justifyContent="space-between"
-      >
-        <Text fos={16} fow={"bold"}>
-          Thông tin tài khoản
-        </Text>
-        <ChevronRight />
       </XStack>
     </AppContainer>
   );

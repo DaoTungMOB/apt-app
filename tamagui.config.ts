@@ -21,6 +21,7 @@ export const tamaguiConfig = createTamagui({
         6: 24,
         7: 28,
       },
+      defaultSize: 7,
     }),
     medium: createFont({
       family: "NunitoMedium",
@@ -33,6 +34,7 @@ export const tamaguiConfig = createTamagui({
         6: 24,
         7: 28,
       },
+      defaultSize: 4,
     }),
     semiBold: createFont({
       family: "NunitoSemiBold",
@@ -45,6 +47,7 @@ export const tamaguiConfig = createTamagui({
         6: 24,
         7: 28,
       },
+      defaultSize: 4,
     }),
     bold: createFont({
       family: "NunitoBold",
@@ -57,6 +60,7 @@ export const tamaguiConfig = createTamagui({
         6: 24,
         7: 28,
       },
+      defaultSize: 4,
     }),
   },
 });

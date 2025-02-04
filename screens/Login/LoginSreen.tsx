@@ -46,7 +46,7 @@ export function LoginScreen() {
           Chào mừng bạn đến với ứng dụng quản lý căn hộ
         </Text>
         <LoginContent />
-        <Text mb={20} mt={10} ta={"right"} fow={"500"} color={"$tint"}>
+        <Text mb={20} mt={10} ta={"right"} fow={"500"} color={"$tint"} onPress={() => router.push('/forgotPassword')}>
           Bạn quên mật khẩu?
         </Text>
         <LoginSubmit />

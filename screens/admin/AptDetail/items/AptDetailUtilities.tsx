@@ -14,7 +14,7 @@ export function AptDetailUtilities() {
   const renderListUtility = () => {
     if (!data || data.length === 0) return;
     return (
-      <View>
+      <View py={10} gap={10}>
         {data.map((item) => {
           return (
             <View
@@ -29,6 +29,7 @@ export function AptDetailUtilities() {
               borderBottomColor={"$borderapp"}
               px={15}
               py={10}
+              mx={15} backgroundColor={'#fff'} elevationAndroid={3} borderRadius={12}
             >
               <Text>
                 Dịch vụ: <Text ff={"$bold"}>{item.title}</Text>

@@ -1,6 +1,6 @@
 import { TCrateAptForm } from "@/screens/admin/CreateApt";
 import { AccountService } from "../AccountService";
-import api from "./api-config";
+import api, { baseURL } from "./api-config";
 import {
   TAccount,
   TAccountResponse,
@@ -13,6 +13,7 @@ import {
 } from "./type";
 import { UploadResponse } from "../CloudinaryUploader";
 import { TDataUpdateProfile } from "@/screens/UpdateProfile/items/UpdateProfileSubmit";
+import axios from "axios";
 
 export const FetchApi = {
   login: async (data: { email: string; password: string }) => {
@@ -22,6 +23,19 @@ export const FetchApi = {
   },
   register: async (data: any) => {
     const response = await api.post("/auth/register", data);
+    return response.data;
+  },
+  changePassword: async ({
+    newPassword,
+    oldPassword,
+  }: {
+    newPassword: string;
+    oldPassword: string;
+  }) => {
+    const response = await api.put("/users/change-password", {
+      newPassword,
+      oldPassword,
+    });
     return response.data;
   },
   getContacts: async () => {
@@ -38,10 +52,16 @@ export const FetchApi = {
   },
   getMyProfile: async () => {
     const response = await api.get<TAccount>("/users/profile");
+    const account = await AccountService.get();
+    await AccountService.set({ ...account, userProlile: response.data });
     return response.data;
   },
   getAvaiableApartment: async () => {
     const resposne = await api.get<TApt[]>("/apartments");
+    return resposne.data;
+  },
+  getAvaiableApartmentDetail: async (apt_id: string) => {
+    const resposne = await api.get<TApt>(`/apartments/${apt_id}`);
     return resposne.data;
   },
   getMyApt: async () => {
@@ -129,6 +149,49 @@ export const FetchApi = {
     });
     return response.data;
   },
+  editApt: async (data: {
+    code: string;
+    floorNumber: number;
+    area: number;
+    rentPrice: number;
+    sellPrice: number;
+    thumbnail?: UploadResponse[];
+    imageUrls?: UploadResponse[];
+    apt_id: string;
+  }) => {
+    const {
+      area,
+      code,
+      floorNumber,
+      rentPrice,
+      sellPrice,
+      imageUrls,
+      thumbnail,
+    } = data;
+    const dataSubmit: {
+      code: string;
+      floorNumber: number;
+      area: number;
+      rentPrice: number;
+      sellPrice: number;
+      imageUrls?: string[];
+      thumbnail?: string;
+    } = {
+      code,
+      floorNumber: Number(floorNumber),
+      area: Number(area),
+      rentPrice: Number(rentPrice),
+      sellPrice: Number(sellPrice),
+    };
+    if (imageUrls)
+      dataSubmit["imageUrls"] = imageUrls.map((item) => item.secure_url);
+    if (thumbnail) dataSubmit["thumbnail"] = thumbnail[0]?.secure_url;
+    const response = await api.put(
+      `/admin/apartments/${data.apt_id}`,
+      dataSubmit
+    );
+    return response.data;
+  },
   deleteUserApt: async (apt_id: string) => {
     console.log(apt_id);
     const response = await api.delete(`/admin/apartments/${apt_id}/users`);
@@ -196,6 +259,7 @@ export const FetchApi = {
     const respone = await api.get<TUtility[]>(
       `/apartments/${apt_id}/utilities`
     );
+    console.log('hdsgvhsdjvgsjvhj ~ ', respone.data)
     return respone.data;
   },
   getMyUtility: async (utility_id: string) => {
@@ -207,5 +271,73 @@ export const FetchApi = {
       `/utilities/${utility_id}/invoices`
     );
     return resposne.data;
+  },
+  payInvoice: async (id: string) => {
+    const response = await api.put(`/invoices/${id}/pay`);
+    return response.data;
+  },
+  forgotPassword: async (email: string) => {
+    const response = await api.post<{ message: string }>(
+      "/auth/forgot-password",
+      { email }
+    );
+    return response.data;
+  },
+  verifyForgotPassword: async (data: { email: string; otp: string }) => {
+    const response = await api.post<{
+      message: string;
+      canResetPassword: boolean;
+      token?: null | string;
+    }>("/auth/verify-forgot-password", data);
+    return response.data;
+  },
+  resetPassword: async ({
+    newPassword,
+    token,
+  }: {
+    newPassword: string;
+    token: string;
+  }) => {
+    const response = await axios.post(
+      `${baseURL}/auth/reset-password`,
+      { newPassword },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  },
+  deleteUtility: async (id: string) => {
+    const response = await api.delete(`/admin/utilities/${id}`);
+    return response.data;
+  },
+  restoreUtility: async (id: string) => {
+    const response = await api.put(`/admin/utilities/${id}/restore`);
+    return response.data;
+  },
+  updateUtility: async (data: {
+    id: string;
+    title: string;
+    price: string;
+    description: string;
+  }) => {
+    const { id, ...rest } = data;
+    const response = await api.put(`/admin/utilities/${id}`, { ...rest });
+    return response.data;
+  },
+  getMonthlySignedStatistics: async () => {
+    const response = await api.get<unknown[]>(
+      `/admin/statistics/monthly-signed-statistics`
+    );
+    return response.data;
+  },
+  getMonthlyPaidInvoices: async () => {
+    const response = await api.get<TInvoice[]>(
+      "/admin/statistics/monthly-paid-invoices"
+    );
+    return response.data;
   },
 };

@@ -1,13 +1,18 @@
 import React from "react";
 import { useController, UseControllerProps } from "react-hook-form";
 import { XStack, YStack } from "tamagui";
-import MaskInput, { MaskInputProps } from "react-native-mask-input";
+import MaskInput, { createNumberMask, MaskInputProps } from "react-native-mask-input";
 import { StyleSheet, View, ViewStyle } from "react-native";
 import { useStyleInput } from "./modules/useStyleInput";
 import { Colors } from "@/constants";
 import { AppTextLabel } from "../AppTextLabel";
 import { AppTextError } from "../AppTextError";
-
+export const vndMask = createNumberMask({
+  prefix: ["đ", " "],
+  delimiter: ".",
+  separator: ",",
+  precision: 0,
+});
 type Props = UseControllerProps &
   MaskInputProps & {
     label?: string;

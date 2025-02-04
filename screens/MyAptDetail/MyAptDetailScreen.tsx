@@ -44,11 +44,6 @@ export function MyAptDetailScreen() {
         content={formatVND(data?.rentPrice)}
       />
       <AptInformation label={"Giá bán:"} content={formatVND(data?.sellPrice)} />
-      <MyAptDetailOwner
-        status={data?.status}
-        userProfile={data?.userProfile}
-        userId={data?.userId}
-      />
       <MyAptDetailUtilities />
       <AptImages imageUrls={data?.imageUrls} />
       {/* <AppDetailContracts /> */}
