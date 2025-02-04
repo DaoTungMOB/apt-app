@@ -7,6 +7,12 @@ import dayjs from "dayjs";
 import { formatVND } from "@/utils";
 import { AppButtonNormal } from "@/elements";
 
+function isAfterFiveDays(date) {
+  const targetDate = dayjs(date).add(3, "day"); // Cộng thêm 3 ngày
+  const now = dayjs(); // Thời gian hiện tại
+
+  return now.isAfter(targetDate); // Trả về true nếu đã sau 3 ngày
+}
 export function MyUtilityDetailInvoice() {
   const router = useRouter();
   const { utility_id } = useLocalSearchParams();
@@ -72,7 +78,13 @@ export function MyUtilityDetailInvoice() {
                 <Text ff={"$bold"}>Ngày tạo hóa đơn: </Text>
                 <Text>{dayjs(item?.createdAt).format("DD/MM/YYYY")}</Text>
               </Text>
-              <Text color={'$error'}>Bạn đã quá hạn thanh toán hóa đơn, vui lòng thanh toán để tiếp tục dịch vụ</Text>
+              {!item.status && isAfterFiveDays(item.createdAt) && (
+                <Text color={"$error"}>
+                  Bạn đã quá hạn thanh toán hóa đơn, vui lòng thanh toán để tiếp
+                  tục dịch vụ
+                </Text>
+              )}
+
               {!item.status && (
                 <AppButtonNormal
                   onPress={() =>

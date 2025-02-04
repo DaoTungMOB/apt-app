@@ -6,8 +6,10 @@ import { AppLoading } from "@/elements";
 import { Text, View } from "tamagui";
 import dayjs = require("dayjs");
 import { formatVND } from "@/utils";
+import { useRouter } from "expo-router";
 
 export function DashboardScreen() {
+  const router = useRouter();
   const { data, isLoading } = useStatistics();
   console.log("data ~ ", data);
   if (isLoading) return <AppLoading />;
@@ -32,6 +34,7 @@ export function DashboardScreen() {
         </Text>
       </View>
       <View
+        onPress={() => router.push("/statisticDetail")}
         gap={15}
         padding={20}
         borderWidth={1}
@@ -47,6 +50,7 @@ export function DashboardScreen() {
         </Text>
       </View>
       <View
+        onPress={() => router.push("/statisticDetail")}
         gap={15}
         padding={20}
         borderWidth={1}
@@ -63,7 +67,7 @@ export function DashboardScreen() {
               (sum, invoice) => sum + invoice.totalPrice,
               0
             ) || 0
-         )}
+          )}
         </Text>
       </View>
     </ScrollView>

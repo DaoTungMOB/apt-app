@@ -20,7 +20,7 @@ export function UtilityDetailInvoice() {
       true: {
         color: "rgb(46, 124, 255)",
         backgroundColor: "rgba(46, 124, 255, 0.4)",
-        text: "Chưa thanh toán",
+        text: "Đã thanh toán",
       },
     }[`${status}`];
     return (

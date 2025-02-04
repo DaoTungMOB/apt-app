@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { useLocalSearchParams, useNavigation } from "expo-router";
 import { Text, XStack } from "tamagui";
 import { FetchApi, formatVND } from "@/utils";
-import dayjs = require("dayjs");
 import { AppButtonNormal } from "@/elements";
 import WebView from "react-native-webview";
 import Toast from "react-native-toast-message";

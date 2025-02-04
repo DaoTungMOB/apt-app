@@ -259,7 +259,7 @@ export const FetchApi = {
     const respone = await api.get<TUtility[]>(
       `/apartments/${apt_id}/utilities`
     );
-    console.log('hdsgvhsdjvgsjvhj ~ ', respone.data)
+    // console.log('hdsgvhsdjvgsjvhj ~ ', respone.data)
     return respone.data;
   },
   getMyUtility: async (utility_id: string) => {

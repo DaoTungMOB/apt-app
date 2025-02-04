@@ -88,6 +88,10 @@ export default function RootLayout() {
                   name="forgotPassword"
                   options={{ headerShown: true, title: 'Quên mật khẩu'}}
                 />
+                <Stack.Screen
+                  name="statisticDetail"
+                  options={{ headerShown: true, title: 'Chi tiết thống kê'}}
+                />
                 <Stack.Screen name="(tabs_user)" />
                 <Stack.Screen name="(tabs_admin)" />
                 <Stack.Screen name="+not-found" />
