@@ -1,6 +1,6 @@
 import { Modal, ScrollView, View } from "react-native";
 import React, { useState } from "react";
-import { useLocalSearchParams, useNavigation } from "expo-router";
+import { useLocalSearchParams, useNavigation, useRouter } from "expo-router";
 import { Text, XStack } from "tamagui";
 import { FetchApi, formatVND } from "@/utils";
 import { AppButtonNormal } from "@/elements";
@@ -10,6 +10,7 @@ import qs from "qs";
 import payPalApi from "@/utils/payPalApi/payPalApi";
 
 export default function Payment() {
+  const router = useRouter()
   const navigation = useNavigation();
   const {
     invoice_id,
@@ -18,6 +19,7 @@ export default function Payment() {
     invoice_quantity,
     invoice_totalPrice,
     invoice_createdAt,
+    apt_id,
   } = useLocalSearchParams();
   console.log("invoice_title ~ ", invoice_title);
   const [cardInfo, setCardInfo] = useState(null);
@@ -42,8 +44,8 @@ export default function Payment() {
         name: invoice_title,
         description: invoice_title,
         quantity: invoice_quantity,
-        unitPrice: invoice_unitPrice,
-        totalPrice: invoice_totalPrice,
+        unitAmount: invoice_unitPrice,
+        amount: invoice_totalPrice,
       });
       setAccessToken(token);
       console.log("res++++++", res);
@@ -88,7 +90,8 @@ export default function Payment() {
       console.log("capturePayment res++++", res);
       Toast.show({ type: "success", text1: "Payment sucessfull...!!!" });
       clearPaypalState();
-      navigation.goBack();
+      router.push({pathname: '/(tabs_user)/myApt/myapt'})
+      // navigation.goBack();
     } catch (error) {
       console.log("error raised in payment capture", error);
     }

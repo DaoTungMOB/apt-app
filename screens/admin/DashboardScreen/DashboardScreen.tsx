@@ -30,7 +30,7 @@ export function DashboardScreen() {
           Số tài khoản mới trong tháng {dayjs().format("MM")}
         </Text>
         <Text ff={"$bold"} fos={36} color={"rgb(117, 186, 117)"}>
-          {data?.signedStatistic.length}
+          {data?.signedStatistic.length || 0}
         </Text>
       </View>
       <View
@@ -46,7 +46,7 @@ export function DashboardScreen() {
           Số hóa đơn thanh toán trong tháng {dayjs().format("MM")}
         </Text>
         <Text ff={"$bold"} fos={36} color={"rgb(117, 186, 117)"}>
-          {data?.paidStatistic.length}
+          {data?.paidStatistic.length || 0}
         </Text>
       </View>
       <View

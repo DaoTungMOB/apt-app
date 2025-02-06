@@ -1,41 +1,103 @@
 let baseUrl = "https://api-m.sandbox.paypal.com";
 const base64 = require("base-64");
 
-let clientId = "AS2fxXFJKgfCVbqzW4_47KcSJjdfEvp7TmwEunIs36TUYn5EIlY8MIyUvJCdtMRlkT-pZ4YGSA_tjH8g";
-let secretKey = "EHleeZmg7PjD5Gy_qUWw5QOsWXkrFxGhJUZXs-zlW4rdkLMcEAQmXcdtqVltuXwHbYik-OZtSrMY-vZE";
+let clientId =
+  "AS2fxXFJKgfCVbqzW4_47KcSJjdfEvp7TmwEunIs36TUYn5EIlY8MIyUvJCdtMRlkT-pZ4YGSA_tjH8g";
+let secretKey =
+  "EHleeZmg7PjD5Gy_qUWw5QOsWXkrFxGhJUZXs-zlW4rdkLMcEAQmXcdtqVltuXwHbYik-OZtSrMY-vZE";
 
-let orderDetail =  {
-  intent: "CAPTURE",
-  purchase_units: [
-    {
-      items: [
-        {
-          name: "T-Shirt",
-          description: "Green XL",
-          quantity: "1",
-          unit_amount: {
-            currency_code: "USD",
-            value: "200.00",
+type TOrderDetail = {
+  quantity: number;
+  name: string;
+  description: string;
+  unitAmount: number;
+  amount: number;
+};
+async function getExchangeRate() {
+  const response = await fetch(
+    "https://api.exchangerate-api.com/v4/latest/VND"
+  );
+  const data = await response.json();
+  return data.rates.USD; // Tỷ giá VND -> USD
+}
+
+async function orderDetail({
+  amount,
+  description,
+  name,
+  quantity,
+  unitAmount,
+}: TOrderDetail) {
+  const exchangeRate = await getExchangeRate(); // Lấy tỷ giá động
+
+  const convertedAmount = (amount * exchangeRate).toFixed(2);
+  const convertedUnitAmount = (unitAmount * exchangeRate).toFixed(2);
+  console.log('abc ~ ', unitAmount, amount, convertedAmount,convertedUnitAmount)
+  console.log("hsdvbjshd ~ ", {
+    intent: "CAPTURE",
+    purchase_units: [
+      {
+        items: [
+          {
+            name,
+            description,
+            quantity: String(quantity),
+            unit_amount: {
+              currency_code: "USD",
+              value: convertedUnitAmount,
+            },
           },
-        },
-      ],
-      amount: {
-        currency_code: "USD",
-        value: "200.00",
-        breakdown: {
-          item_total: {
-            currency_code: "USD",
-            value: "200.00",
+        ],
+        amount: {
+          currency_code: "USD",
+          value: convertedAmount,
+          breakdown: {
+            item_total: {
+              currency_code: "USD",
+              value: convertedAmount,
+            },
           },
         },
       },
+    ],
+    application_context: {
+      return_url: "https://example.com/return",
+      cancel_url: "https://example.com/cancel",
     },
-  ],
-  application_context: {
-    return_url: "https://example.com/return",
-    cancel_url: "https://example.com/cancel",
-  },
-};
+  });
+  return {
+    intent: "CAPTURE",
+    purchase_units: [
+      {
+        items: [
+          {
+            name,
+            description,
+            quantity: String(quantity),
+            unit_amount: {
+              currency_code: "USD",
+              value: convertedUnitAmount,
+            },
+          },
+        ],
+        amount: {
+          currency_code: "USD",
+          value: convertedAmount,
+          breakdown: {
+            item_total: {
+              currency_code: "USD",
+              value: convertedAmount,
+            },
+          },
+        },
+      },
+    ],
+    application_context: {
+      return_url: "https://example.com/return",
+      cancel_url: "https://example.com/cancel",
+    },
+  };
+}
 
 const generateToken = () => {
   var headers = new Headers();
@@ -66,14 +128,15 @@ const generateToken = () => {
   });
 };
 
-const createOrder = (token = "") => {
+const createOrder = async (token = "", data: TOrderDetail) => {
+  const body = await orderDetail(data);
   var requestOptions = {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify(orderDetail),
+    body: JSON.stringify(body),
   };
 
   return new Promise((resolve, reject) => {

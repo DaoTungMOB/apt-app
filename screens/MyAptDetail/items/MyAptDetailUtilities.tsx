@@ -10,7 +10,7 @@ export function MyAptDetailUtilities() {
   const { apt_id } = useLocalSearchParams();
   const router = useRouter();
   const { data } = useQueryAptDetailUtilities(apt_id);
-  console.log('data utility ~ ',data);
+  console.log("data utility ~ ", data);
   const renderListUtility = () => {
     if (!data || data.length === 0) return;
     return (
@@ -21,7 +21,7 @@ export function MyAptDetailUtilities() {
               onPress={() =>
                 router.push({
                   pathname: "/(tabs_user)/myApt/utilityDetail",
-                  params: { utility_id: item._id },
+                  params: { utility_id: item._id, apt_id },
                 })
               }
               key={item._id}

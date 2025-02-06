@@ -15,7 +15,7 @@ function isAfterFiveDays(date) {
 }
 export function MyUtilityDetailInvoice() {
   const router = useRouter();
-  const { utility_id } = useLocalSearchParams();
+  const { utility_id, apt_id } = useLocalSearchParams();
   const { data } = useQueryMyUtilityInvoice(utility_id);
   console.log("data ~ ", data);
   const renderStatus = (status: boolean) => {
@@ -85,26 +85,26 @@ export function MyUtilityDetailInvoice() {
                 </Text>
               )}
 
-              {!item.status && (
-                <AppButtonNormal
-                  onPress={() =>
-                    router.push({
-                      pathname: "/payment",
-                      params: {
-                        invoice_id: item?._id,
-                        invoice_title: item?.title,
-                        invoice_unitPrice: item?.unitPrice,
-                        invoice_quantity: item?.quantity,
-                        invoice_totalPrice: item?.totalPrice,
-                        invoice_createdAt: item?.createdAt,
-                      },
-                    })
-                  }
-                  mt={10}
-                >
-                  Thanh toán hóa đơn
-                </AppButtonNormal>
-              )}
+              {/* {!item.status && ( */}
+              <AppButtonNormal
+                onPress={() =>
+                  router.push({
+                    pathname: "/payment",
+                    params: {
+                      invoice_id: item?._id,
+                      invoice_title: item?.title,
+                      invoice_unitPrice: item?.unitPrice,
+                      invoice_quantity: item?.quantity,
+                      invoice_totalPrice: item?.totalPrice,
+                      invoice_createdAt: item?.createdAt,apt_id
+                    },
+                  })
+                }
+                mt={10}
+              >
+                Thanh toán hóa đơn
+              </AppButtonNormal>
+              {/* )} */}
             </View>
           );
         })}
